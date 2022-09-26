@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class GameManager : MonoBehaviour
+{
+    
+   
+   public GameObject obstacle;
+  
+    public Transform spawnPoint;
+
+    public Text scoreText;
+    public GameObject playButton;
+    public GameObject NextLevel;
+    public GameObject player;
+    public Image Image;
+   
+     
+
+
+    void Start()
+    {
+        scoreText.gameObject.SetActive(false);
+    }
+
+    void Hand()
+    {
+        Image.gameObject.SetActive(false);
+    }
+    
+    IEnumerator SpawnObstacles()
+    {
+      
+        while (true)
+        {
+            float waitTime = Random.Range(1f,4f);
+            yield return new WaitForSeconds(waitTime);
+
+            Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
+
+        }
+    }
+
+    
+  
+
+    public void GameStart()
+    {
+       
+        player.SetActive(true);
+        playButton.SetActive(false);
+        NextLevel.SetActive(false);
+        scoreText.gameObject.SetActive(true);
+        Image.gameObject.SetActive(true);
+        Invoke("Hand", 5f);
+
+        StartCoroutine("SpawnObstacles");
+
+    }
+}
