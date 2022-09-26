@@ -1,0 +1,34 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class ScoreManager : MonoBehaviour
+{
+    Text currentScore;
+    public int score;
+    [SerializeField] Obstacle ObstacleManager;
+
+    void Start()
+    {
+        currentScore = GetComponent<Text>();
+    }
+    
+    void Update()
+    {
+        currentScore.text = score.ToString();
+
+        if (score > PlayerPrefs.GetInt("highestscore"))
+        {
+            PlayerPrefs.SetInt("highestscore", score);
+        }
+        
+
+    }
+    
+    public void AddPoint()
+    {
+        score++;
+        currentScore.text = score.ToString();
+    }
+   
+}
